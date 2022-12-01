@@ -16,7 +16,7 @@ ${id_usuario_para_atualizar}    a882cdc0-040e-467f-9fb7-2acef76243cf
 Cenario 1 - Deve Atualizar Um Usuario Com Dados Válidos
     
     
-    ${usuario_atualizacao}            Usuario
+    ${usuario_atualizacao}            usuario_atualizacao
     ${response}             Atualizar Um Usuario       ${usuario_atualizacao}    ${id_usuario_para_atualizar}          
 
 
@@ -24,7 +24,7 @@ Cenario 1 - Deve Atualizar Um Usuario Com Dados Válidos
 
 Cenario 2 - Deve Atualizar Um Usuario Com Dados Inválidos
 
-    ${usuario_atualizacao_invalido}               Usuario
+    ${usuario_atualizacao_invalido}               usuario_atualizacao_invalido
     ${response}         Atualizar Um Usuario    ${usuario_atualizacao_invalido}    ${id_usuario_para_atualizar} 
 
 

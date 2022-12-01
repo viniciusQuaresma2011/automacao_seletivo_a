@@ -59,3 +59,19 @@ Atualizar Um Usuario
     
 
     [return]        ${response}
+
+
+Remover Um Usuario
+    [Arguments]     ${id_usuario}
+    
+    # &{tokenzinho}        Create Dictionary        Authorization=${token}
+
+    ${response}        DELETE 
+        ...            ${API_URL}/user/${id_usuario}
+        # ...            headers=${tokenzinho}
+        ...            expected_status=any
+
+    
+    
+
+    [return]        ${response}
