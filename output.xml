@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 4.1.3 (Python 3.10.2 on win32)" generated="20221201 15:14:00.315" rpa="false" schemaversion="2">
-<suite id="s1" name="Remover" source="c:\Users\vinicius\Documents\processo_seletivo_audax\resource\specs\Usuario\Remover.robot">
-<test id="s1-t1" name="Cenário 1 - Remocao de Usuário">
-<kw name="Remover Um Usuario" library="Usuario">
-<var>${response}</var>
-<arg>${id_usuario}</arg>
-<kw name="DELETE" library="RequestsLibrary">
-<var>${response}</var>
-<arg>${API_URL}/user/${id_usuario}</arg>
-<arg>expected_status=any</arg>
-<doc>Sends a DELETE request.</doc>
-<msg timestamp="20221201 15:14:01.289" level="INFO">DELETE Request : url=https://processoseletivo.audax.mobi/user/6176a689-ea8b-4a12-849d-2f5ea2199b24 
- path_url=/user/6176a689-ea8b-4a12-849d-2f5ea2199b24 
- headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
- body=None 
- </msg>
-<msg timestamp="20221201 15:14:01.295" level="INFO">DELETE Response : url=https://processoseletivo.audax.mobi/user/6176a689-ea8b-4a12-849d-2f5ea2199b24 
- status=204, reason=No Content 
- headers={'Date': 'Thu, 01 Dec 2022 18:14:02 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive'} 
- body=None 
- </msg>
-<msg timestamp="20221201 15:14:01.295" level="INFO">${response} = &lt;Response [204]&gt;</msg>
-<status status="PASS" starttime="20221201 15:14:00.778" endtime="20221201 15:14:01.297"/>
+<robot generator="Robot 4.1.3 (Python 3.10.2 on win32)" generated="20221201 15:25:49.632" rpa="false" schemaversion="2">
+<suite id="s1" name="Cadastrar" source="c:\Users\vinicius\Documents\processo_seletivo_audax\resource\specs\Artigo\Cadastrar.robot">
+<test id="s1-t1" name="Cenário 1 - Cadastro de Artigo">
+<kw name="Artigo" library="Artigo">
+<var>${artigo}</var>
+<msg timestamp="20221201 15:25:50.088" level="INFO">${artigo} = {'title': 'Excet occaecat cupidatat non proident', 'resume': 'Nam vulputate dapibus.Interagi no mé, cursus quis, vehicula ac nisi.', 'text': 'stringstringstringstringstringstringstringstringstringstri...</msg>
+<status status="PASS" starttime="20221201 15:25:50.088" endtime="20221201 15:25:50.091"/>
 </kw>
-<msg timestamp="20221201 15:14:01.299" level="INFO">${response} = &lt;Response [204]&gt;</msg>
-<status status="PASS" starttime="20221201 15:14:00.777" endtime="20221201 15:14:01.300"/>
+<kw name="Cadastrar Um Artigo" library="Artigo">
+<var>${response}</var>
+<arg>${artigo}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_URL}/article</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20221201 15:25:50.541" level="INFO">POST Request : url=https://processoseletivo.audax.mobi/article 
+ path_url=/article 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '429', 'Content-Type': 'application/json'} 
+ body=b'{"title": "Excet occaecat cupidatat non proident", "resume": "Nam vulputate dapibus.Interagi no m\\u00e9, cursus quis, vehicula ac nisi.", "text": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "User": {"uuid": "918d0a69-bf08-49e1-8ebb-0a9f14898d3e", "username": "Fulano"}}' 
+ </msg>
+<msg timestamp="20221201 15:25:50.543" level="INFO">POST Response : url=https://processoseletivo.audax.mobi/article 
+ status=201, reason=Created 
+ headers={'Date': 'Thu, 01 Dec 2022 18:25:51 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
+ body={"uuid":"92692ea3-501b-427f-b018-2565c99571c9","title":"Excet occaecat cupidatat non proident","resume":"Nam vulputate dapibus.Interagi no m\u00e9, cursus quis, vehicula ac nisi.","text":"stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst","slug":"excet-occaecat-cupidatat-non-proident","registeredAt":"2022-12-01T15:25:51-03:00","User":{"uuid":"918d0a69-bf08-49e1-8ebb-0a9f14898d3e","username":"Fulano"}} 
+ </msg>
+<msg timestamp="20221201 15:25:50.544" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221201 15:25:50.093" endtime="20221201 15:25:50.544"/>
+</kw>
+<msg timestamp="20221201 15:25:50.545" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221201 15:25:50.092" endtime="20221201 15:25:50.545"/>
 </kw>
 <kw name="Status Should Be" library="RequestsLibrary">
-<arg>204</arg>
+<arg>201</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" starttime="20221201 15:14:01.302" endtime="20221201 15:14:01.303"/>
+<status status="PASS" starttime="20221201 15:25:50.548" endtime="20221201 15:25:50.550"/>
 </kw>
-<status status="PASS" starttime="20221201 15:14:00.775" endtime="20221201 15:14:01.303"/>
+<status status="PASS" starttime="20221201 15:25:50.086" endtime="20221201 15:25:50.554"/>
 </test>
-<doc>Remoção De Usuário</doc>
-<status status="PASS" starttime="20221201 15:14:00.324" endtime="20221201 15:14:01.308"/>
+<doc>Cadastro De Artigos</doc>
+<status status="PASS" starttime="20221201 15:25:49.639" endtime="20221201 15:25:50.561"/>
 </suite>
 <statistics>
 <total>
@@ -43,7 +49,7 @@
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Remover">Remover</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="Cadastrar">Cadastrar</stat>
 </suite>
 </statistics>
 <errors>
