@@ -25,3 +25,18 @@ Cadastrar Um Artigo
     
 
     [return]        ${response}
+
+Listar artigos cadastrados
+    [Arguments]     
+    
+    ${response}    GET
+        ...        ${API_URL}/article
+    [return]       ${response} 
+
+
+Listar artigo Pelo Id
+    [Arguments]     ${payload}
+    
+    ${response}    GET
+        ...        ${API_URL}/article/${payload}
+    [return]       ${response}
