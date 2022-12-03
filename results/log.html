@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 4.1.3 (Python 3.9.10 on win32)" name="Generator">
+<meta content="Robot Framework 6.0.1 (Python 3.9.10 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAqAAAAAAAAAAAAAAAAAAAALIAAAD/AAAA4AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA4AAAAP8AAACxAAAAAAAAAKYAAAD/AAAAuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/AAAA/wAAAKkAAAD6AAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8AAAD/AAAA+gAAAMMAAAAAAAAAAgAAAGsAAABrAAAAawAAAGsAAABrAAAAawAAAGsAAABrAAAADAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAIsAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAANEAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAAAAAAAAMgAAADIAAAAyAAAAMgAAADIAAAAyAAAAMgAAADIAAAAFAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAADwAAAB8AAAAAAAAAGAAAABcAAAAAAAAAH8AAABKAAAAAAAAAAAAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAADCAAAA/wAAACkAAADqAAAA4QAAAAAAAAD7AAAA/wAAALAAAAAGAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAIwAAAP4AAAD/AAAA/wAAAGAAAAAAAAAAAAAAAMkAAAD/AAAAigAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAAAAAAAIAAAAcAAAABkAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA2gAAAP8AAAD7AAAAywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4AAAD/AAAAqwAAAP8AAACvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIAAAD/AAAAsgAAAAAAAAC5AAAA/wAAAMoAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMkAAAD/AAAAvAAAAAAAAAAAAAAAAAAAAKwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAArQAAAAAAAAAAwAMAAIABAAAf+AAAP/wAAD/8AAAgBAAAP/wAAD/8AAA//AAAJIwAADHEAAA//AAAP/wAAB/4AACAAQAAwAMAAA==">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -318,6 +318,9 @@ th.stats-col-graph:hover {
     top: 0;
     padding: 3px;
     cursor: default;
+}
+.element-header .label {
+    margin-right: 0.5em;
 }
 .name {
     font-weight: bold;
@@ -966,6 +969,7 @@ window.model = (function () {
     }
     function Keyword(data) {
         var kw = createModelObject(data);
+        var flatTypes = ['RETURN', 'BREAK', 'CONTINUE'];
         kw.libname = data.libname;
         kw.fullName = (kw.libname ? kw.libname + '.' : '') + kw.name;
         kw.type = data.type;
@@ -1350,8 +1354,8 @@ window.testdata = function () {
     var _statistics = null;
     var LEVELS = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FAIL', 'SKIP'];
     var STATUSES = ['FAIL', 'PASS', 'SKIP', 'NOT RUN'];
-    var KEYWORD_TYPES = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'VAR', 'IF', 'ELSE IF', 'ELSE'];
-    var MESSAGE_TYPE = 8;
+    var KEYWORD_TYPES = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'ITERATION', 'IF', 'ELSE IF', 'ELSE', 'RETURN',
+                         'TRY', 'EXCEPT', 'FINALLY', 'WHILE', 'CONTINUE', 'BREAK'];
     function addElement(elem) {
         if (!elem.id)
             elem.id = uniqueId();
@@ -1372,10 +1376,10 @@ window.testdata = function () {
                 elapsed];
     }
     function createMessage(element, strings) {
-        return model.Message(LEVELS[element[2]],
-                             util.timestamp(element[1]),
-                             strings.get(element[3]),
-                             strings.get(element[4]));
+        return model.Message(LEVELS[element[1]],
+                             util.timestamp(element[0]),
+                             strings.get(element[2]),
+                             strings.get(element[3]));
     }
     function parseStatus(stats) {
         return STATUSES[stats[0]];
@@ -1386,7 +1390,7 @@ window.testdata = function () {
         };
     }
     function createBodyItem(parent, element, strings, index) {
-        if (element[0] == MESSAGE_TYPE)
+        if (element.length < 5)
             return createMessage(element, strings);
         var messages = util.filter(parent.children(), function (child) {
             return child.type == 'message';
@@ -1799,25 +1803,25 @@ function stopPropagation(event) {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[1,0,1330],[[4,5,6,0,[],[1,32,1295],[[7,8,9,0,[],[1,37,1287],[[10,11,12,0,[],[1,41,1281],[[13,14,15,16,[],[1,46,1273],[],[[17,0,0,[],[1,321,995],[[0,10,10,0,0,0,18,0,[1,323,1],[[8,323,2,19]]],[0,20,10,0,0,18,21,0,[1,325,492],[[0,22,23,0,24,25,21,0,[1,326,490],[[8,812,2,26],[8,813,2,27],[8,815,2,28]]],[8,816,2,28]]],[0,29,23,0,30,31,0,0,[1,819,0],[]],[0,32,10,0,0,33,21,0,[1,820,491],[[0,34,23,0,35,36,21,0,[1,822,488],[[8,1308,2,37],[8,1308,2,38],[8,1309,2,39]]],[8,1311,2,39]]],[0,29,23,0,30,40,0,0,[1,1315,0],[]]]]],[],[1,1,0,0]]],[],[],[1,1,0,0]]],[],[],[1,1,0,0]]],[],[],[1,1,0,0]]],[],[],[1,1,0,0]];
+window.output["suite"] = [1,2,3,0,[],[0,0,4885],[[4,5,6,0,[],[0,28,4853],[[7,8,9,0,[],[0,32,4847],[[10,11,12,0,[],[0,36,4840],[[13,14,15,16,[],[0,40,2356],[],[[17,0,0,[],[0,270,2124,18],[[0,10,10,0,0,0,19,0,[1,273,2],[[274,2,20]]],[0,21,10,0,0,19,22,0,[1,276,2112],[[0,23,24,0,25,26,22,0,[1,277,2110],[[2386,2,27],[2387,2,28],[2387,2,29]]],[2388,2,29]]],[0,30,24,0,31,32,0,0,[0,2390,4],[[2391,5,18]]]]]],[],[1,0,1,0]],[33,34,35,36,[],[1,2399,1993],[],[[37,0,0,[],[1,2408,1982],[[0,38,10,0,0,0,22,0,[1,2410,1977],[[0,39,24,0,40,41,22,0,[1,2410,1975],[[4382,2,42],[4383,2,43],[4384,2,44]]],[4385,2,44]]],[0,30,24,0,31,45,0,0,[1,4388,1],[]]]]],[],[1,1,0,0]],[46,47,48,49,[],[0,4395,479],[],[[50,0,0,[],[0,4404,468,18],[[0,10,10,0,0,0,19,0,[1,4405,2],[[4406,2,20]]],[0,21,10,0,0,19,22,0,[1,4407,459],[[0,23,24,0,25,26,22,0,[1,4408,456],[[4862,2,27],[4862,2,51],[4864,2,29]]],[4865,2,29]]],[0,30,24,0,31,32,0,0,[0,4867,3],[[4868,5,18]]],[0,52,10,0,0,53,22,0,[3,4870,1],[]],[0,30,24,0,31,45,0,0,[3,4871,0],[]]]]],[],[1,0,1,0]]],[],[],[3,1,2,0]]],[],[],[3,1,2,0]]],[],[],[3,1,2,0]]],[],[],[3,1,2,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*Automacao Seletivo A","*C:\\Users\\Vuribi\\automacao_seletivo_a","*..","*Resource","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource","*../resource","*Specs","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs","*../resource/specs","*Artigo","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs\\Artigo","*../resource/specs/Artigo","*Listar por id","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs\\Artigo\\Listar_por_id.robot","*../resource/specs/Artigo/Listar_por_id.robot","*<p>Listar artigo por uid\x3c/p>","*Cenario 1 - Listar artigo por UID","*${artigo}","eNqdjLENwjAQRVf5BZKbyAMgUVLQsMPhnMJJiW18d1EkxEDMwWI4jEDz9Yr/3uFJzWQqL5zwDCY2czginLfEhpIScSJD8iojWadcMmorMnK2MCA0Vl9+ypUWrD5X7zfGSFVurvGSjRtN0kUsn/fQU01d8XDRASvfJflMoIQsKnFPGm+2B9Wa5OmfjTF+AeKQT/Y=","*Cadastrar Um Artigo","*${response}","*POST","*RequestsLibrary","*<p>Sends a POST request.\x3c/p>","*${API_URL}/article, json=${payload}, expected_status=any","eNrVUs1qGzEQvvcphr0shP3J2t7ENvgQSgqF0pY2vQXKrDTeVauVFGlk7Bq/e6Sm0LxCLkJ8f8N80tcv3x/gGz1FCgxbiF7vJmYXtm3rvBUUgg2kidXBNhglHpvZDqpFz0pognfgkKef2fYKmwgl+bA7lz8C+fpuJMPlFkp34sma2r+MC+2iWdw2XVlBeScEOa7vjbBSmTGLxz/KVSBpr5HpvyZTV+1VBt5bY0iwsiaDv4lcjVod6B/HaWr9iczIU+ZX/eI18XBylGF0TiuBOaX9FVLUJS0wWHnaDeW5YMWaii0U90dBDFYIpCQGEZ2SyOlmrIHUlJIptKig8BTi/NfyGWc4RO1ikhFIdGqIofmYxnscVTLC/PgYr69pU6U8H2KAp6hCBQealIgaAQUYFVSTc5mOnFMD+1TQ2z/zTkHHMe+krae5Vi41l+H8aRJ8LmJUMvPdctP3Q7+su/3NUK82q32NtOnrm6HDdSfXuF7uszEmo8GX9j+kAo0tLpcyveczVAIGRw==","eNrVU01T2zAQvfdXaHzJTMdKZCd2Es/kwECgTAthwLQ99CJLm0StIxl9hADDf+8qKQwc+AE9yBrvvrcfb1dXi5uaXIPrjHZAKhJsO1t737lqMOisEeCccdCCV1vT50HyXX9jGjXg1ivRAvlEnOc+uFnOspRY4M7o2THeHiQ618AlWDd76p2gpVeR3qlVKWE5OQFBcpbnhLEqm1bFmJxd1L2U9G7AbsFG6FHHxRqi7dhoD9rTuRZGKr2K3tWj6qLvO7cPe7QQ0L2BpAeTczSyrWnpUduae7qwaqV0ZHz+EHMBfm2ki6CzeZ1e3eJBodKT+bd5PU8XV/X54vLmQ/qXQ9eR/pNew10Ah3LQH8qvU/LSS/3QQUoOVafkUBX+B8xs1SP3yuiY4CtAh2HVdq+eVxswwc+KlGz4bpYx9k8eDWLPqN4x0Fdbrt0S7DvtxDroPyDfShvLiS7eda0S+/SD3zjM3jOOsTHyYfaUhKBkUiVNXhQTWZaUlYLT0XJY0GY0EjRncsnGo3FWluMkTbzyLSB8vhPgiRGCA8YlInRKclwaoo0muGNKYn7EW3BhEwmXfEO2oe0CgoBI3qkmuP451mn5SiGNbH4FxmCaYjDrgiN3QbmUbGGtRGg54YJo5VQ/FgE7jyGdt9j6///FjlwbVtgRRFXpi6r0VVWKqtJ3qq4Ubp8FeRSFiE+OZjllWZ1nh4dH2bBiDKG3DmxSvY45G06LoimGNFuWDR1NR0vKYVrQssn4JJMTPhkukRWQpfl+cKcovjbJc1yZvxXWenI=","*${response} = &lt;Response [201]&gt;","*Status Should Be","*<p>Fails if response status code is different than the expected.\x3c/p>","*201","*Listar artigo Pelo Id","*${response.json()['uuid']}","*GET","*<p>Sends a GET request.\x3c/p>","*${API_URL}/article/${payload}","*GET Request : url=https://processoseletivo.audax.mobi/article/b2558d66-06ca-4f35-b44c-20df07471667 \n path_url=/article/b2558d66-06ca-4f35-b44c-20df07471667 \n headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} \n body=None \n ","eNrVU01PGzEQvfdXWLlEquzEu8lukpX2gMpCEYUgWNoeevHak6zbjb34Iw0g/nvtpCA4IPXagy155r35eDM+rWp0DbbXygIqkDdd2TrX22I87o3mYK220IGTWz1iXrDdaKMbOWbGSd7BuEmzbC7ynNCcMzJdTTLSTKecpFSs6Gw6S/J8hj4g65jztkwpxcgAs1qVy/Ngb4EJMLZ8HB4zB8MCDU+MxIim6Bg4SmmaIkqLZFFkc3R6UQ8xGt6A2YKJ0KOe8Rai7ZNWDpQjleJaSLWO3vWD7KPvKzP3ezTn0L+C4IPJWhLZRnfkqOv0b7I0ci1VZHx8F3MBrtXCRtBpVeOr23CWNzU+rr5UdYWXV/XZ8vLmXfrnQ9eR/p1cw50H60CQb9K1GD33Ut/3gNGhaowOVYW3D5mNfGBOahUTnAP0Iazc7tVzcgPauzLDaMN2ZULpX3kU8D2jeMMIvtowZVdg3mjHW69+gXgtbSwnuljfd5Lv049/hjkOn8IYGy3uy8eB91IMisG/7MQAD5x0HQR4tePgkOacQYiLuO+lYGFfkNIKhR2UIuQPeAPWbyLhkm3Q1ne9DyBAgvWy8XZ0Fuo0bC0DDW1+eEphgUMwY71Fd15ajLbQSu47hhhHSlo5ikXAzoWQ1pnQ+v9/h45s59ehI4iqkmdVyYuqJKhK3qi6lmH7DIijKET8ciRJCU3qNNl/vBmhk4LSAL21YAbFy5iTySLLmmxCklXekOliuiIMFhnJm4TNEzFn88kqsHxgKbYf3EkQX+nBU1yZP2EDgQI=","*${response} = &lt;Response [200]&gt;","*200"]);
+window.output["strings"] = window.output["strings"].concat(["*","*Automacao Seletivo A","*C:\\Users\\Vuribi\\automacao_seletivo_a","*..","*Resource","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource","*../resource","*Specs","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs","*../resource/specs","*Artigo","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs\\Artigo","*../resource/specs/Artigo","*Cadastrar","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs\\Artigo\\Cadastrar.robot","*../resource/specs/Artigo/Cadastrar.robot","*<p>Cadastro De Artigos\x3c/p>","*Cenário 1 - Cadastro de Artigo Válido","*Url: <a href=\"https://processoseletivo.audax.mobi/article\">https://processoseletivo.audax.mobi/article\x3c/a> Expected status: 422 != 201","*${artigo}","*${artigo} = {'title': 'Excet occaecat cupidatat non proident', 'resume': 'Nam vulputate dapibus.Interagi no mé, cursus quis, vehicula ac nisi.', 'text': 'stringstringstringstringstringstringstringstringstringstri...","*Cadastrar Um Artigo","*${response}","*POST","*RequestsLibrary","*<p>Sends a POST request.\x3c/p>","*${API_URL}/article, json=${payload}, expected_status=any","eNrVUs1qGzEQvvcphr0shP3J2t7ENvgQSgqF0pY2vQXKrDTeVauVFGlk7Bq/e6Sm0LxCLkJ8f8N80tcv3x/gGz1FCgxbiF7vJmYXtm3rvBUUgg2kidXBNhglHpvZDqpFz0pognfgkKef2fYKmwgl+bA7lz8C+fpuJMPlFkp34sma2r+MC+2iWdw2XVlBeScEOa7vjbBSmTGLxz/KVSBpr5HpvyZTV+1VBt5bY0iwsiaDv4lcjVod6B/HaWr9iczIU+ZX/eI18XBylGF0TiuBOaX9FVLUJS0wWHnaDeW5YMWaii0U90dBDFYIpCQGEZ2SyOlmrIHUlJIptKig8BTi/NfyGWc4RO1ikhFIdGqIofmYxnscVTLC/PgYr69pU6U8H2KAp6hCBQealIgaAQUYFVSTc5mOnFMD+1TQ2z/zTkHHMe+krae5Vi41l+H8aRJ8LmJUMvPdctP3Q7+su/3NUK82q32NtOnrm6HDdSfXuF7uszEmo8GX9j+kAo0tLpcyveczVAIGRw==","eNp1ksFu2zAQRO/9ioUuAgoqdtQUBQToENRCWrSpjVhpcqXJrcWGJlly6UYx/O8l5RRIDjlIELlvtMsZrpbrHm4wOGsCQgPR63YgcqGZzZy3AkOwATWS2tszHiV/PNvZjZpxT0pohHcQiFMM7UVdM/DIgzXtrXmW8k1COkOKxkQOyCX60B7KBScsGyjXnBjMP8ACBdTzuk6v5qJuzj/B1XVfsgSg36PP6KXjYsC899kaQkNVZ4SVymxzdfukXK795H6caCHQvUDYaSuEKqu91dWl1vZvtfRqq0xWvH+TuUYarAwZuup6trpNT3KNLbrvXd+x5ar/uvyxflP+5XTqLL+vbvBPxEAoqztFA4P/Z+lHhwxOUzM4TZXWMXX26omTsiY3+Ibo0m/VfnKP1A5tpPYjgx1/bM/n82d7DIpJ0bxSpFrvuQm/0L/yTgzRPKB8aW0eJ5e4c1qJqf3sd0q2PKYYN1aO7aFA760vmkOxy0FvsWiKlU75I6ScxAOMNnpQxkUqWCGRuNIh4+ky6Az3gwowLSB9cJ3ujhxhg2kqiAFlcTzmbv8AJund0g==","*${response} = &lt;Response [422]&gt;","*Status Should Be","*<p>Fails if response status code is different than the expected.\x3c/p>","*201","*Listar","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs\\Artigo\\Listar.robot","*../resource/specs/Artigo/Listar.robot","*<p>Listar artigos\x3c/p>","*Cenario 1 - Listar artigos cadastrados","*Listar artigos cadastrados","*GET","*<p>Sends a GET request.\x3c/p>","*${API_URL}/article","*GET Request : url=https://processoseletivo.audax.mobi/article \n path_url=/article \n headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} \n body=None \n ","eNrVU9tOGzEQfecrrLxEquzEu8nmstI+oJJSRCEIlrZS2wevPcm63diLL2kA8e+1kwKJVD6glnak9ZwzlzPj01mJrsG2WllAOfKmKWrnWpv3+63RHKzVFhpwcq17zAu26a10JfvMOMkbQEfIOua8LVJKMTLArFbF/Dzc18AEGFs8dk+Yg26OujfMYUQH6AQ4SmmaBpMP0zyZotOLsosDAMwaTIQet4zXEO/ea+VAOTJTXAupltG7fJBt9H1m5n6L5hzaPQjeXVlLItvohhw3jf5N5kYupYqMd29iLsDVWtgIOp2V+Oo2fPObEp/MPs3KGZ5flWfzy5s36R93XUf6V3INdx6sA0G+SFdj9NxLed8CRruqMdpVFf59yGzkA3NSq5jgHKANYeV6q56TK9DeFRlGK7YpEkr/yqOAbxn5ASP4SsOUXYA50I7XXv0CsS9tLCe6WNs2km/T93+GOXafwhgrLe6Lb0conMetjafjvRSdHHWqNMsmYjQidMQZGS4GGamGQ05SKhZ0PBwno9G4g195TroGInG24eCQ5pxByIi4b6VgYZOQ0gqFxZMiVLbPNGD9aku9ZCu09k3rAxyQYK2svO2dhV4MW8oQAK2+e0phikNYY71Fd15ajNZQS+4bhhhHSlrZOygMNi4Gt84Eof5/u9+bbfwy9gZRc/KsOXnRnATNyb81X8qwvgbE8Vac+GhJkhKalGkS3m2ejQkd5JTuk24tmAB+XZaDhUkG0yyrsgFJFqOKDKfDBWEwzcioStgkERM2GSz2ou24IaJiu+F/CANUuvMCeDra2R9hVf8Ai6WGSw==","*${response} = &lt;Response [200]&gt;","*200","*Listar por id","*C:\\Users\\Vuribi\\automacao_seletivo_a\\resource\\specs\\Artigo\\Listar_por_id.robot","*../resource/specs/Artigo/Listar_por_id.robot","*<p>Listar artigo por uid\x3c/p>","*Cenario 1 - Listar artigo por UID","eNp1kjFv2zAQhff+ioMWAQUVO2o6VICGoBbSok1txEqTlSavFhuaZMmjG8Xwfy8pp0AyZJAg8r6nO77H1XLdww0GZ01AaCB63Q5ELjSzmfNWYAg2oEZSe3vGo+SPZzu7UTPuSQmN8A4CcYqhvahrBh55sKa9Nc9SvklIZ0jRmMgBuUQf2kO54IRlA+WaE4P5B1iggHpe1+nVXNTN+Se4uu5LlgD0e/QZvXRcDJj3PltDaKjqjLBSmW2ubp+Uy7Wf3I8TLQS6Fwg7bYVQZbW3urrU2v6tll5tlcmK928y10iDlSFDV13PVrfpSa6xRfe96zu2XPVflz/Wb8q/nE6d5ffVDf6JGAhldadoYPD/LP3okMFpaganqdI6ps5ePXFS1uQG3xBd+q3aT+6R2qGN1H5ksOOP7fl8/myPQTEpmleKVOs9N+EX+lfeiSGaB5Qvrc3j5BJ3TisxtZ/9TsmWxxTjxsqxPRTovfVFcyh2OegtFk2x0il/hJSTeIDRRg/KuEgFKyQSVzpkPF0GneF+UAGmBaQPrtPdkSNsME0FMaAsjsfc7R8q/93U","*Listar artigo Pelo Id","*${response.json()['uuid']}"]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:01","fail":0,"label":"All Tests","pass":1,"skip":0}],[],[{"elapsed":"00:00:01","fail":0,"id":"s1","label":"Automacao Seletivo A","name":"Automacao Seletivo A","pass":1,"skip":0},{"elapsed":"00:00:01","fail":0,"id":"s1-s1","label":"Automacao Seletivo A.Resource","name":"Resource","pass":1,"skip":0},{"elapsed":"00:00:01","fail":0,"id":"s1-s1-s1","label":"Automacao Seletivo A.Resource.Specs","name":"Specs","pass":1,"skip":0},{"elapsed":"00:00:01","fail":0,"id":"s1-s1-s1-s1","label":"Automacao Seletivo A.Resource.Specs.Artigo","name":"Artigo","pass":1,"skip":0},{"elapsed":"00:00:01","fail":0,"id":"s1-s1-s1-s1-s1","label":"Automacao Seletivo A.Resource.Specs.Artigo.Listar por id","name":"Listar por id","pass":1,"skip":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:05","fail":2,"label":"All Tests","pass":1,"skip":0}],[],[{"elapsed":"00:00:05","fail":2,"id":"s1","label":"Automacao Seletivo A","name":"Automacao Seletivo A","pass":1,"skip":0},{"elapsed":"00:00:05","fail":2,"id":"s1-s1","label":"Automacao Seletivo A.Resource","name":"Resource","pass":1,"skip":0},{"elapsed":"00:00:05","fail":2,"id":"s1-s1-s1","label":"Automacao Seletivo A.Resource.Specs","name":"Specs","pass":1,"skip":0},{"elapsed":"00:00:05","fail":2,"id":"s1-s1-s1-s1","label":"Automacao Seletivo A.Resource.Specs.Artigo","name":"Artigo","pass":1,"skip":0},{"elapsed":"00:00:02","fail":1,"id":"s1-s1-s1-s1-s1","label":"Automacao Seletivo A.Resource.Specs.Artigo.Cadastrar","name":"Cadastrar","pass":0,"skip":0},{"elapsed":"00:00:02","fail":0,"id":"s1-s1-s1-s1-s2","label":"Automacao Seletivo A.Resource.Specs.Artigo.Listar","name":"Listar","pass":1,"skip":0},{"elapsed":"00:00:00","fail":1,"id":"s1-s1-s1-s1-s3","label":"Automacao Seletivo A.Resource.Specs.Artigo.Listar por id","name":"Listar por id","pass":0,"skip":0}]];
 </script>
 <script type="text/javascript">
 window.output["errors"] = [];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1669940395812;
+window.output["baseMillis"] = 1670100134512;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 1349;
+window.output["generated"] = 4905;
 </script>
 <script type="text/javascript">
 window.output["expand_keywords"] = null;
@@ -2123,7 +2127,7 @@ function addExecutionLog(main) {
     <div class="element-header closed" onclick="toggleKeyword('${id}')">
       <div class="element-header-left" title="${type}  {{if name}}{{html fullName}}  {{/if}}[${status}]">
         <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
-        <span class="label keyword ${status.toLowerCase()}">${type}</span>
+        <span class="label ${status.toLowerCase()}">${type}</span>
         <span>{{html assign}}</span>
         <span class="name"><span class="parent-name">{{html libname}}{{if libname}} . {{/if}}</span>{{html name}}</span>
         <span class="arg">{{html arguments}}</span>
@@ -2131,7 +2135,7 @@ function addExecutionLog(main) {
       <div class="element-header-right" onclick="stopPropagation(event)">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" title="Link to this keyword" href="#${id}" onclick="makeElementVisible('${id}')"></a>
+        <a class="link" title="Link to this item" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
       <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>

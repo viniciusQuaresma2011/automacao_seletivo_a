@@ -6,26 +6,37 @@ Library    ../../factories/Usuario.py
 Resource    ../../routes/Usuario.robot
 
 
-# Suite Setup    Set Client Key    
-
-*** Variables ***
-${id_usuario_para_atualizar}    a882cdc0-040e-467f-9fb7-2acef76243cf
-
 
 *Test Cases*
 Cenario 1 - Deve Atualizar Um Usuario Com Dados Válidos
+
+    ${usuario}          Usuario
+    ${response}         Cadastrar Um Usuario       ${usuario} 
+
+
+    Status Should Be    201
     
     
     ${usuario_atualizacao}            usuario_atualizacao
-    ${response}             Atualizar Um Usuario       ${usuario_atualizacao}    ${id_usuario_para_atualizar}          
+    ${response}             Atualizar Um Usuario       ${usuario_atualizacao}    ${response.json()['uuid']}          
 
 
     Status Should Be    200
 
+    ${response}         Remover Um Usuario      ${response.json()['uuid']}
+
+
+    Status Should Be    204
+
 Cenario 2 - Deve Atualizar Um Usuario Com Dados Inválidos
+    ${usuario}          Usuario
+    ${response}         Cadastrar Um Usuario       ${usuario} 
+
+
+    Status Should Be    201
 
     ${usuario_atualizacao_invalido}               usuario_atualizacao_invalido
-    ${response}         Atualizar Um Usuario    ${usuario_atualizacao_invalido}    ${id_usuario_para_atualizar} 
+    ${response}         Atualizar Um Usuario    ${usuario_atualizacao_invalido}    ${response.json()['uuid']}  
 
 
     Status Should Be    400
@@ -33,9 +44,20 @@ Cenario 2 - Deve Atualizar Um Usuario Com Dados Inválidos
 Cenario 3 - Deve Atualizar Um Usuario Com Dados Já Registrados
 
     ${usuario}          Usuario
-    ${response}         Atualizar Um Usuario   ${usuario}    ${id_usuario_para_atualizar} 
+    ${response}         Cadastrar Um Usuario       ${usuario} 
+
+
+    Status Should Be    201
+
+    ${usuario}          Usuario
+    ${response}         Atualizar Um Usuario   ${usuario}    ${response.json()['uuid']} 
 
 
     Status Should Be    400
+
+     ${response}         Remover Um Usuario      ${response.json()['uuid']}
+
+
+    Status Should Be    204
 
 
