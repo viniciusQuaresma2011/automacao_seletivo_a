@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.0.1 (Python 3.9.10 on win32)" generated="20221203 17:42:14.507" rpa="false" schemaversion="3">
+<robot generator="Robot 6.0.1 (Python 3.9.10 on win32)" generated="20221205 18:02:02.883" rpa="false" schemaversion="3">
 <suite id="s1" name="Automacao Seletivo A" source="C:\Users\Vuribi\automacao_seletivo_a">
 <suite id="s1-s1" name="Resource" source="C:\Users\Vuribi\automacao_seletivo_a\resource">
 <suite id="s1-s1-s1" name="Specs" source="C:\Users\Vuribi\automacao_seletivo_a\resource\specs">
 <suite id="s1-s1-s1-s1" name="Artigo" source="C:\Users\Vuribi\automacao_seletivo_a\resource\specs\Artigo">
-<suite id="s1-s1-s1-s1-s1" name="Cadastrar" source="C:\Users\Vuribi\automacao_seletivo_a\resource\specs\Artigo\Cadastrar.robot">
-<test id="s1-s1-s1-s1-s1-t1" name="Cenário 1 - Cadastro de Artigo Válido" line="12">
+<suite id="s1-s1-s1-s1-s1" name="Atualizar" source="C:\Users\Vuribi\automacao_seletivo_a\resource\specs\Artigo\Atualizar.robot">
+<test id="s1-s1-s1-s1-s1-t1" name="Cenario 1 - Deve Atualizar Um Artigo Com Dados Válidos" line="11">
 <kw name="Artigo" library="Artigo">
 <var>${artigo}</var>
-<msg timestamp="20221203 17:42:14.786" level="INFO">${artigo} = {'title': 'Excet occaecat cupidatat non proident', 'resume': 'Nam vulputate dapibus.Interagi no mé, cursus quis, vehicula ac nisi.', 'text': 'stringstringstringstringstringstringstringstringstringstri...</msg>
-<status status="PASS" starttime="20221203 17:42:14.785" endtime="20221203 17:42:14.787"/>
+<msg timestamp="20221205 18:02:03.417" level="INFO">${artigo} = {'title': '03410 Robert Unions\nNew Kenneth, DE 75720', 'resume': 'Nam vulputate dapib mé, cursus qui nteragi no mé, cursus quinteragi no mé, cursus qui', 'text': 'teste stringstringstringstringstring...</msg>
+<status status="PASS" starttime="20221205 18:02:03.415" endtime="20221205 18:02:03.417"/>
 </kw>
 <kw name="Cadastrar Um Artigo" library="Artigo">
 <var>${response}</var>
@@ -20,140 +20,264 @@
 <arg>json=${payload}</arg>
 <arg>expected_status=any</arg>
 <doc>Sends a POST request.</doc>
-<msg timestamp="20221203 17:42:16.898" level="INFO">POST Request : url=https://processoseletivo.audax.mobi/article 
+<msg timestamp="20221205 18:02:03.904" level="INFO">POST Request : url=https://processoseletivo.audax.mobi/article 
  path_url=/article 
- headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '452', 'Content-Type': 'application/json'} 
- body=b'{"title": "Excet occaecat cupidatat non proident", "resume": "Nam vulputate dapibus.Interagi no m\\u00e9, cursus quis, vehicula ac nisi.", "text": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "slug": "lorem-ipsum", "User": {"uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f", "username": "Fulano"}}' 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '493', 'Content-Type': 'application/json'} 
+ body=b'{"title": "03410 Robert Unions\\nNew Kenneth, DE 75720", "resume": "Nam vulputate dapib m\\u00e9, cursus qui nteragi no m\\u00e9, cursus quinteragi no m\\u00e9, cursus qui", "text": "teste stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "slug": "Sherri Johnson", "User": {"uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f", "username": "Fulano"}}' 
  </msg>
-<msg timestamp="20221203 17:42:16.899" level="INFO">POST Response : url=https://processoseletivo.audax.mobi/article 
- status=422, reason=Unprocessable Entity 
- headers={'Date': 'Sat, 03 Dec 2022 20:42:17 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
- body={"error":{"message":"Please check your input","details":{"title":"This title is already being used"}}} 
+<msg timestamp="20221205 18:02:03.905" level="INFO">POST Response : url=https://processoseletivo.audax.mobi/article 
+ status=201, reason=Created 
+ headers={'Date': 'Mon, 05 Dec 2022 21:02:04 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
+ body={"uuid":"dec7818b-7ffd-42c5-b2db-1bb8091d0a8c","title":"03410 Robert Unions\nNew Kenneth, DE 75720","resume":"Nam vulputate dapib m\u00e9, cursus qui nteragi no m\u00e9, cursus quinteragi no m\u00e9, cursus qui","text":"teste stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst","slug":"03410-robert-unions-new-kenneth-de-75720","registeredAt":"2022-12-05T18:02:04-03:00","User":{"uuid":"13955b53-1f6b-494f-ae95-6b1a81d8a83f","username":"Fulano"}} 
  </msg>
-<msg timestamp="20221203 17:42:16.899" level="INFO">${response} = &lt;Response [422]&gt;</msg>
-<status status="PASS" starttime="20221203 17:42:14.789" endtime="20221203 17:42:16.899"/>
+<msg timestamp="20221205 18:02:03.906" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:03.420" endtime="20221205 18:02:03.907"/>
 </kw>
-<msg timestamp="20221203 17:42:16.900" level="INFO">${response} = &lt;Response [422]&gt;</msg>
-<status status="PASS" starttime="20221203 17:42:14.788" endtime="20221203 17:42:16.900"/>
+<msg timestamp="20221205 18:02:03.908" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:03.419" endtime="20221205 18:02:03.909"/>
 </kw>
 <kw name="Status Should Be" library="RequestsLibrary">
 <arg>201</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<msg timestamp="20221203 17:42:16.903" level="FAIL">Url: https://processoseletivo.audax.mobi/article Expected status: 422 != 201</msg>
-<status status="FAIL" starttime="20221203 17:42:16.902" endtime="20221203 17:42:16.906"/>
+<status status="PASS" starttime="20221205 18:02:03.910" endtime="20221205 18:02:03.910"/>
 </kw>
-<status status="FAIL" starttime="20221203 17:42:14.782" endtime="20221203 17:42:16.906">Url: https://processoseletivo.audax.mobi/article Expected status: 422 != 201</status>
-</test>
-<doc>Cadastro De Artigos</doc>
-<status status="FAIL" starttime="20221203 17:42:14.552" endtime="20221203 17:42:16.908"/>
-</suite>
-<suite id="s1-s1-s1-s1-s2" name="Listar" source="C:\Users\Vuribi\automacao_seletivo_a\resource\specs\Artigo\Listar.robot">
-<test id="s1-s1-s1-s1-s2-t1" name="Cenario 1 - Listar artigos cadastrados" line="11">
-<kw name="Listar artigos cadastrados" library="Artigo">
+<kw name="Artigo Atualizacao" library="Artigo">
+<var>${artigo_atualizacao}</var>
+<msg timestamp="20221205 18:02:03.912" level="INFO">${artigo_atualizacao} = {'title': 'EDITLofe djaisjhi qnaush qwdm a9sdjqje aksdqiw dajsdi', 'resume': 'EDITNam vulputate dapib mé, cursus qui nteragi no mé, cursus quinteragi no mé, cursus qui', 'text': 'teste EDIT stringstri...</msg>
+<status status="PASS" starttime="20221205 18:02:03.911" endtime="20221205 18:02:03.912"/>
+</kw>
+<kw name="Atualizar Um Artigo" library="Artigo">
 <var>${response}</var>
-<kw name="GET" library="RequestsLibrary">
+<arg>${artigo_atualizacao}</arg>
+<arg>${response.json()['uuid']}</arg>
+<kw name="PUT" library="RequestsLibrary">
 <var>${response}</var>
-<arg>${API_URL}/article</arg>
-<doc>Sends a GET request.</doc>
-<msg timestamp="20221203 17:42:18.894" level="INFO">GET Request : url=https://processoseletivo.audax.mobi/article 
- path_url=/article 
- headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
- body=None 
+<arg>${API_URL}/article/${id_artigo}</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a PUT request.</doc>
+<msg timestamp="20221205 18:02:04.396" level="INFO">PUT Request : url=https://processoseletivo.audax.mobi/article/dec7818b-7ffd-42c5-b2db-1bb8091d0a8c 
+ path_url=/article/dec7818b-7ffd-42c5-b2db-1bb8091d0a8c 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '509', 'Content-Type': 'application/json'} 
+ body=b'{"title": "EDITLofe djaisjhi qnaush qwdm a9sdjqje aksdqiw dajsdi", "resume": "EDITNam vulputate dapib m\\u00e9, cursus qui nteragi no m\\u00e9, cursus quinteragi no m\\u00e9, cursus qui", "text": "teste EDIT stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "slug": "Anna Smith", "User": {"uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f", "username": "Fulano"}}' 
  </msg>
-<msg timestamp="20221203 17:42:18.895" level="INFO">GET Response : url=https://processoseletivo.audax.mobi/article 
+<msg timestamp="20221205 18:02:04.397" level="INFO">PUT Response : url=https://processoseletivo.audax.mobi/article/dec7818b-7ffd-42c5-b2db-1bb8091d0a8c 
  status=200, reason=OK 
- headers={'Date': 'Sat, 03 Dec 2022 20:42:19 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
- body=[
-    {
-        "uuid": "b2558d66-06ca-4f35-b44c-20df07471667",
-        "title": "Excet occaecat cupidatat non proident",
-        "resume": "Nam vulputate dapibus.Interagi no m\u00e9, cursus quis, vehicula ac nisi.",
-        "text": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst",
-        "slug": "excet-occaecat-cupidatat-non-proident",
-        "registeredAt": "2022-12-01T21:19:57-03:00",
-        "User": {
-            "uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f",
-            "username": "Fulano"
-        }
-    }
-] 
+ headers={'Date': 'Mon, 05 Dec 2022 21:02:04 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
+ body={"uuid":"dec7818b-7ffd-42c5-b2db-1bb8091d0a8c","title":"EDITLofe djaisjhi qnaush qwdm a9sdjqje aksdqiw dajsdi","resume":"EDITNam vulputate dapib m\u00e9, cursus qui nteragi no m\u00e9, cursus quinteragi no m\u00e9, cursus qui","text":"teste EDIT stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst","slug":"editlofe-djaisjhi-qnaush-qwdm-a9sdjqje-aksdqiw-dajsdi","registeredAt":"2022-12-05T18:02:04-03:00","User":{"uuid":"13955b53-1f6b-494f-ae95-6b1a81d8a83f","username":"Fulano"}} 
  </msg>
-<msg timestamp="20221203 17:42:18.896" level="INFO">${response} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20221203 17:42:16.922" endtime="20221203 17:42:18.897"/>
+<msg timestamp="20221205 18:02:04.397" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:03.914" endtime="20221205 18:02:04.399"/>
 </kw>
-<msg timestamp="20221203 17:42:18.897" level="INFO">${response} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20221203 17:42:16.922" endtime="20221203 17:42:18.899"/>
+<msg timestamp="20221205 18:02:04.399" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:03.913" endtime="20221205 18:02:04.400"/>
 </kw>
 <kw name="Status Should Be" library="RequestsLibrary">
 <arg>200</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<status status="PASS" starttime="20221203 17:42:18.900" endtime="20221203 17:42:18.901"/>
+<status status="PASS" starttime="20221205 18:02:04.401" endtime="20221205 18:02:04.402"/>
 </kw>
-<status status="PASS" starttime="20221203 17:42:16.920" endtime="20221203 17:42:18.902"/>
-</test>
-<doc>Listar artigos</doc>
-<status status="PASS" starttime="20221203 17:42:16.911" endtime="20221203 17:42:18.904"/>
-</suite>
-<suite id="s1-s1-s1-s1-s3" name="Listar por id" source="C:\Users\Vuribi\automacao_seletivo_a\resource\specs\Artigo\Listar_por_id.robot">
-<test id="s1-s1-s1-s1-s3-t1" name="Cenario 1 - Listar artigo por UID" line="12">
-<kw name="Artigo" library="Artigo">
-<var>${artigo}</var>
-<msg timestamp="20221203 17:42:18.918" level="INFO">${artigo} = {'title': 'Excet occaecat cupidatat non proident', 'resume': 'Nam vulputate dapibus.Interagi no mé, cursus quis, vehicula ac nisi.', 'text': 'stringstringstringstringstringstringstringstringstringstri...</msg>
-<status status="PASS" starttime="20221203 17:42:18.917" endtime="20221203 17:42:18.919"/>
-</kw>
-<kw name="Cadastrar Um Artigo" library="Artigo">
-<var>${response}</var>
-<arg>${artigo}</arg>
-<kw name="POST" library="RequestsLibrary">
-<var>${response}</var>
-<arg>${API_URL}/article</arg>
-<arg>json=${payload}</arg>
-<arg>expected_status=any</arg>
-<doc>Sends a POST request.</doc>
-<msg timestamp="20221203 17:42:19.374" level="INFO">POST Request : url=https://processoseletivo.audax.mobi/article 
- path_url=/article 
- headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '452', 'Content-Type': 'application/json'} 
- body=b'{"title": "Excet occaecat cupidatat non proident", "resume": "Nam vulputate dapibus.Interagi no m\\u00e9, cursus quis, vehicula ac nisi.", "text": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "slug": "lorem-ipsum", "User": {"uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f", "username": "Fulano"}}' 
- </msg>
-<msg timestamp="20221203 17:42:19.374" level="INFO">POST Response : url=https://processoseletivo.audax.mobi/article 
- status=422, reason=Unprocessable Entity 
- headers={'Date': 'Sat, 03 Dec 2022 20:42:19 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
- body={"error":{"message":"Please check your input","details":{"title":"This title is already being used"}}} 
- </msg>
-<msg timestamp="20221203 17:42:19.376" level="INFO">${response} = &lt;Response [422]&gt;</msg>
-<status status="PASS" starttime="20221203 17:42:18.920" endtime="20221203 17:42:19.376"/>
-</kw>
-<msg timestamp="20221203 17:42:19.377" level="INFO">${response} = &lt;Response [422]&gt;</msg>
-<status status="PASS" starttime="20221203 17:42:18.919" endtime="20221203 17:42:19.378"/>
-</kw>
-<kw name="Status Should Be" library="RequestsLibrary">
-<arg>201</arg>
-<doc>Fails if response status code is different than the expected.</doc>
-<msg timestamp="20221203 17:42:19.380" level="FAIL">Url: https://processoseletivo.audax.mobi/article Expected status: 422 != 201</msg>
-<status status="FAIL" starttime="20221203 17:42:19.379" endtime="20221203 17:42:19.382"/>
-</kw>
-<kw name="Listar artigo Pelo Id" library="Artigo">
+<kw name="Remover Um Artigo" library="Artigo">
 <var>${response}</var>
 <arg>${response.json()['uuid']}</arg>
-<status status="NOT RUN" starttime="20221203 17:42:19.382" endtime="20221203 17:42:19.383"/>
+<kw name="DELETE" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_URL}/article/${id_article}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request.</doc>
+<msg timestamp="20221205 18:02:04.889" level="INFO">DELETE Request : url=https://processoseletivo.audax.mobi/article/dec7818b-7ffd-42c5-b2db-1bb8091d0a8c 
+ path_url=/article/dec7818b-7ffd-42c5-b2db-1bb8091d0a8c 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20221205 18:02:04.890" level="INFO">DELETE Response : url=https://processoseletivo.audax.mobi/article/dec7818b-7ffd-42c5-b2db-1bb8091d0a8c 
+ status=204, reason=No Content 
+ headers={'Date': 'Mon, 05 Dec 2022 21:02:05 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20221205 18:02:04.891" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:04.406" endtime="20221205 18:02:04.892"/>
+</kw>
+<msg timestamp="20221205 18:02:04.892" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:04.404" endtime="20221205 18:02:04.894"/>
 </kw>
 <kw name="Status Should Be" library="RequestsLibrary">
-<arg>200</arg>
+<arg>204</arg>
 <doc>Fails if response status code is different than the expected.</doc>
-<status status="NOT RUN" starttime="20221203 17:42:19.383" endtime="20221203 17:42:19.383"/>
+<status status="PASS" starttime="20221205 18:02:04.895" endtime="20221205 18:02:04.896"/>
 </kw>
-<status status="FAIL" starttime="20221203 17:42:18.916" endtime="20221203 17:42:19.384">Url: https://processoseletivo.audax.mobi/article Expected status: 422 != 201</status>
+<status status="PASS" starttime="20221205 18:02:03.413" endtime="20221205 18:02:04.897"/>
 </test>
-<doc>Listar artigo por uid</doc>
-<status status="FAIL" starttime="20221203 17:42:18.907" endtime="20221203 17:42:19.386"/>
+<test id="s1-s1-s1-s1-s1-t2" name="Cenario 2 - Deve Atualizar Um Artigo Com o Dados Inválidos" line="31">
+<kw name="Artigo" library="Artigo">
+<var>${artigo}</var>
+<msg timestamp="20221205 18:02:04.902" level="INFO">${artigo} = {'title': '893 Bond Roads Apt. 397\nSouth Ashley, WY 88635', 'resume': 'Nam vulputate dapib mé, cursus qui nteragi no mé, cursus quinteragi no mé, cursus qui', 'text': 'teste stringstringstringstrings...</msg>
+<status status="PASS" starttime="20221205 18:02:04.901" endtime="20221205 18:02:04.903"/>
+</kw>
+<kw name="Cadastrar Um Artigo" library="Artigo">
+<var>${response}</var>
+<arg>${artigo}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_URL}/article</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20221205 18:02:05.388" level="INFO">POST Request : url=https://processoseletivo.audax.mobi/article 
+ path_url=/article 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '499', 'Content-Type': 'application/json'} 
+ body=b'{"title": "893 Bond Roads Apt. 397\\nSouth Ashley, WY 88635", "resume": "Nam vulputate dapib m\\u00e9, cursus qui nteragi no m\\u00e9, cursus quinteragi no m\\u00e9, cursus qui", "text": "teste stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "slug": "Frank Patterson", "User": {"uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f", "username": "Fulano"}}' 
+ </msg>
+<msg timestamp="20221205 18:02:05.389" level="INFO">POST Response : url=https://processoseletivo.audax.mobi/article 
+ status=201, reason=Created 
+ headers={'Date': 'Mon, 05 Dec 2022 21:02:05 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
+ body={"uuid":"b5f82428-7b97-42dd-a606-5585a6dd6299","title":"893 Bond Roads Apt. 397\nSouth Ashley, WY 88635","resume":"Nam vulputate dapib m\u00e9, cursus qui nteragi no m\u00e9, cursus quinteragi no m\u00e9, cursus qui","text":"teste stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst","slug":"893-bond-roads-apt-397-south-ashley-wy-88635","registeredAt":"2022-12-05T18:02:05-03:00","User":{"uuid":"13955b53-1f6b-494f-ae95-6b1a81d8a83f","username":"Fulano"}} 
+ </msg>
+<msg timestamp="20221205 18:02:05.390" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:04.905" endtime="20221205 18:02:05.391"/>
+</kw>
+<msg timestamp="20221205 18:02:05.391" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:04.904" endtime="20221205 18:02:05.392"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>201</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20221205 18:02:05.393" endtime="20221205 18:02:05.394"/>
+</kw>
+<kw name="Artigo Atualizacao Invalido" library="Artigo">
+<var>${artigo_atualizacao_invalido}</var>
+<msg timestamp="20221205 18:02:05.395" level="INFO">${artigo_atualizacao_invalido} = {'title': 'EDIT!@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$', 'resume': 'EDIT!@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$!@#$@#!$@# $@#$@#$@', 'text': 'teste EDIT !@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@#...</msg>
+<status status="PASS" starttime="20221205 18:02:05.395" endtime="20221205 18:02:05.396"/>
+</kw>
+<kw name="Atualizar Um Artigo" library="Artigo">
+<var>${response}</var>
+<arg>${artigo_atualizacao_invalido}</arg>
+<arg>${response.json()['uuid']}</arg>
+<kw name="PUT" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_URL}/article/${id_artigo}</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a PUT request.</doc>
+<msg timestamp="20221205 18:02:05.867" level="INFO">PUT Request : url=https://processoseletivo.audax.mobi/article/b5f82428-7b97-42dd-a606-5585a6dd6299 
+ path_url=/article/b5f82428-7b97-42dd-a606-5585a6dd6299 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '472', 'Content-Type': 'application/json'} 
+ body=b'{"title": "EDIT!@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$", "resume": "EDIT!@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$!@#$@#!$@# $@#$@#$@", "text": "teste EDIT !@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$ingstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "slug": "!@#$@#!$@# $@#$@#$@", "User": {"uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f", "username": "Fulano"}}' 
+ </msg>
+<msg timestamp="20221205 18:02:05.867" level="INFO">PUT Response : url=https://processoseletivo.audax.mobi/article/b5f82428-7b97-42dd-a606-5585a6dd6299 
+ status=200, reason=OK 
+ headers={'Date': 'Mon, 05 Dec 2022 21:02:06 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
+ body={"uuid":"b5f82428-7b97-42dd-a606-5585a6dd6299","title":"EDIT!@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$","resume":"EDIT!@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$!@#$@#!$@# $@#$@#$@","text":"teste EDIT !@#$@#!$@# $@#$@#$@ #$@ @#$@#$@#$@# @#$@#$@#$ingstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst","slug":"edit-at-at-at-at-at-at-at-at-at-at-at-at-at-at","registeredAt":"2022-12-05T18:02:05-03:00","User":{"uuid":"13955b53-1f6b-494f-ae95-6b1a81d8a83f","username":"Fulano"}} 
+ </msg>
+<msg timestamp="20221205 18:02:05.869" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:05.398" endtime="20221205 18:02:05.870"/>
+</kw>
+<msg timestamp="20221205 18:02:05.870" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:05.397" endtime="20221205 18:02:05.871"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>400</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20221205 18:02:05.874" level="FAIL">Url: https://processoseletivo.audax.mobi/article/b5f82428-7b97-42dd-a606-5585a6dd6299 Expected status: 200 != 400</msg>
+<status status="FAIL" starttime="20221205 18:02:05.873" endtime="20221205 18:02:05.876"/>
+</kw>
+<status status="FAIL" starttime="20221205 18:02:04.899" endtime="20221205 18:02:05.877">Url: https://processoseletivo.audax.mobi/article/b5f82428-7b97-42dd-a606-5585a6dd6299 Expected status: 200 != 400</status>
+</test>
+<test id="s1-s1-s1-s1-s1-t3" name="Cenario 3 - Deve Atualizar Um Artigo Com Dados Nulos" line="44">
+<kw name="Artigo" library="Artigo">
+<var>${artigo}</var>
+<msg timestamp="20221205 18:02:05.881" level="INFO">${artigo} = {'title': '36877 Brady Course\nEast Jesse, KS 88409', 'resume': 'Nam vulputate dapib mé, cursus qui nteragi no mé, cursus quinteragi no mé, cursus qui', 'text': 'teste stringstringstringstringstringst...</msg>
+<status status="PASS" starttime="20221205 18:02:05.880" endtime="20221205 18:02:05.882"/>
+</kw>
+<kw name="Cadastrar Um Artigo" library="Artigo">
+<var>${response}</var>
+<arg>${artigo}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_URL}/article</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20221205 18:02:06.381" level="INFO">POST Request : url=https://processoseletivo.audax.mobi/article 
+ path_url=/article 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '489', 'Content-Type': 'application/json'} 
+ body=b'{"title": "36877 Brady Course\\nEast Jesse, KS 88409", "resume": "Nam vulputate dapib m\\u00e9, cursus qui nteragi no m\\u00e9, cursus quinteragi no m\\u00e9, cursus qui", "text": "teste stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst", "slug": "Dan Roberson", "User": {"uuid": "13955b53-1f6b-494f-ae95-6b1a81d8a83f", "username": "Fulano"}}' 
+ </msg>
+<msg timestamp="20221205 18:02:06.381" level="INFO">POST Response : url=https://processoseletivo.audax.mobi/article 
+ status=201, reason=Created 
+ headers={'Date': 'Mon, 05 Dec 2022 21:02:06 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
+ body={"uuid":"88889a4b-0f1a-4df4-ad2b-dd0f55dbfcb7","title":"36877 Brady Course\nEast Jesse, KS 88409","resume":"Nam vulputate dapib m\u00e9, cursus qui nteragi no m\u00e9, cursus quinteragi no m\u00e9, cursus qui","text":"teste stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstringst","slug":"36877-brady-course-east-jesse-ks-88409","registeredAt":"2022-12-05T18:02:06-03:00","User":{"uuid":"13955b53-1f6b-494f-ae95-6b1a81d8a83f","username":"Fulano"}} 
+ </msg>
+<msg timestamp="20221205 18:02:06.383" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:05.884" endtime="20221205 18:02:06.383"/>
+</kw>
+<msg timestamp="20221205 18:02:06.384" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:05.883" endtime="20221205 18:02:06.385"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>201</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20221205 18:02:06.386" endtime="20221205 18:02:06.388"/>
+</kw>
+<kw name="Artigo Atualizacao Nulo" library="Artigo">
+<var>${artigo_atualizacao_nulo}</var>
+<msg timestamp="20221205 18:02:06.389" level="INFO">${artigo_atualizacao_nulo} = {'title': '', 'resume': '', 'text': '', 'slug': '', 'User': {'uuid': '', 'username': ''}}</msg>
+<status status="PASS" starttime="20221205 18:02:06.389" endtime="20221205 18:02:06.390"/>
+</kw>
+<kw name="Atualizar Um Artigo" library="Artigo">
+<var>${response}</var>
+<arg>${artigo_atualizacao_nulo}</arg>
+<arg>${response.json()['uuid']}</arg>
+<kw name="PUT" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_URL}/article/${id_artigo}</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a PUT request.</doc>
+<msg timestamp="20221205 18:02:06.854" level="INFO">PUT Request : url=https://processoseletivo.audax.mobi/article/88889a4b-0f1a-4df4-ad2b-dd0f55dbfcb7 
+ path_url=/article/88889a4b-0f1a-4df4-ad2b-dd0f55dbfcb7 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '89', 'Content-Type': 'application/json'} 
+ body=b'{"title": "", "resume": "", "text": "", "slug": "", "User": {"uuid": "", "username": ""}}' 
+ </msg>
+<msg timestamp="20221205 18:02:06.855" level="INFO">PUT Response : url=https://processoseletivo.audax.mobi/article/88889a4b-0f1a-4df4-ad2b-dd0f55dbfcb7 
+ status=422, reason=Unprocessable Entity 
+ headers={'Date': 'Mon, 05 Dec 2022 21:02:07 GMT', 'Server': 'Apache', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept, Origin, Authorization', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json'} 
+ body={"error":{"message":"Please check your input","details":{"title":"Title must not be empty","resume":"Resume must not be empty","text":"Text must not be empty"}}} 
+ </msg>
+<msg timestamp="20221205 18:02:06.856" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:06.392" endtime="20221205 18:02:06.857"/>
+</kw>
+<msg timestamp="20221205 18:02:06.858" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<status status="PASS" starttime="20221205 18:02:06.391" endtime="20221205 18:02:06.859"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>400</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20221205 18:02:06.861" level="FAIL">Url: https://processoseletivo.audax.mobi/article/88889a4b-0f1a-4df4-ad2b-dd0f55dbfcb7 Expected status: 422 != 400</msg>
+<status status="FAIL" starttime="20221205 18:02:06.860" endtime="20221205 18:02:06.862"/>
+</kw>
+<kw name="Remover Um Usuario">
+<var>${response}</var>
+<arg>${response.json()['uuid']}</arg>
+<status status="NOT RUN" starttime="20221205 18:02:06.866" endtime="20221205 18:02:06.869"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>204</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" starttime="20221205 18:02:06.872" endtime="20221205 18:02:06.872"/>
+</kw>
+<status status="FAIL" starttime="20221205 18:02:05.879" endtime="20221205 18:02:06.873">Url: https://processoseletivo.audax.mobi/article/88889a4b-0f1a-4df4-ad2b-dd0f55dbfcb7 Expected status: 422 != 400</status>
+</test>
+<doc>Atualizar Artigo</doc>
+<status status="FAIL" starttime="20221205 18:02:02.930" endtime="20221205 18:02:06.875"/>
 </suite>
-<status status="FAIL" starttime="20221203 17:42:14.548" endtime="20221203 17:42:19.388"/>
+<status status="FAIL" starttime="20221205 18:02:02.926" endtime="20221205 18:02:06.878"/>
 </suite>
-<status status="FAIL" starttime="20221203 17:42:14.544" endtime="20221203 17:42:19.391"/>
+<status status="FAIL" starttime="20221205 18:02:02.921" endtime="20221205 18:02:06.880"/>
 </suite>
-<status status="FAIL" starttime="20221203 17:42:14.540" endtime="20221203 17:42:19.393"/>
+<status status="FAIL" starttime="20221205 18:02:02.917" endtime="20221205 18:02:06.883"/>
 </suite>
-<status status="FAIL" starttime="20221203 17:42:14.512" endtime="20221203 17:42:19.397"/>
+<status status="FAIL" starttime="20221205 18:02:02.888" endtime="20221205 18:02:06.886"/>
 </suite>
 <statistics>
 <total>
@@ -166,9 +290,7 @@
 <stat pass="1" fail="2" skip="0" id="s1-s1" name="Resource">Automacao Seletivo A.Resource</stat>
 <stat pass="1" fail="2" skip="0" id="s1-s1-s1" name="Specs">Automacao Seletivo A.Resource.Specs</stat>
 <stat pass="1" fail="2" skip="0" id="s1-s1-s1-s1" name="Artigo">Automacao Seletivo A.Resource.Specs.Artigo</stat>
-<stat pass="0" fail="1" skip="0" id="s1-s1-s1-s1-s1" name="Cadastrar">Automacao Seletivo A.Resource.Specs.Artigo.Cadastrar</stat>
-<stat pass="1" fail="0" skip="0" id="s1-s1-s1-s1-s2" name="Listar">Automacao Seletivo A.Resource.Specs.Artigo.Listar</stat>
-<stat pass="0" fail="1" skip="0" id="s1-s1-s1-s1-s3" name="Listar por id">Automacao Seletivo A.Resource.Specs.Artigo.Listar por id</stat>
+<stat pass="1" fail="2" skip="0" id="s1-s1-s1-s1-s1" name="Atualizar">Automacao Seletivo A.Resource.Specs.Artigo.Atualizar</stat>
 </suite>
 </statistics>
 <errors>

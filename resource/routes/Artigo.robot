@@ -40,3 +40,36 @@ Listar artigo Pelo Id
     ${response}    GET
         ...        ${API_URL}/article/${payload}
     [return]       ${response}
+
+
+Atualizar Um Artigo
+    [Arguments]     ${payload}    ${id_artigo}
+    
+    # &{tokenzinho}        Create Dictionary        Authorization=${token}
+
+    ${response}        PUT 
+        ...            ${API_URL}/article/${id_artigo}
+        ...            json=${payload}
+        # ...            headers=${tokenzinho}
+        ...            expected_status=any
+
+    
+    
+
+    [return]        ${response}
+
+
+Remover Um Artigo
+    [Arguments]     ${id_article}
+    
+    # &{tokenzinho}        Create Dictionary        Authorization=${token}
+
+    ${response}        DELETE 
+        ...            ${API_URL}/article/${id_article}
+        # ...            headers=${tokenzinho}
+        ...            expected_status=any
+
+    
+    
+
+    [return]        ${response}
